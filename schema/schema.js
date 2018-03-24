@@ -8,26 +8,35 @@ const {
     GraphQLObjectType,
     GraphQLString,
     GraphQLInt,
-    GraphQLSchema //library inti dari schema yang ditaruh di root
+    GraphQLSchema, //library inti dari schema yang ditaruh di root
+    GraphQLList
 } = graphql;
 
 // 1 relasi ke tabel lain
 const CompanyType = new GraphQLObjectType({
     name: "Company",
-    fields: {
+    fields: () => ( {
         id: {type:GraphQLString},
         name: {type:GraphQLString},
-        description: {type:GraphQLString}
-    }
+        description: {type:GraphQLString},
+        // resolving circular reference
+        users: {
+            type: new GraphQLList(UserType),
+            resolve(parentValue, args){
+                return axios.get(`http://localhost:3000/companies/${parentValue.id}/users`)
+                    .then(res=>res.data);
+            }
+        }
+    })
 });
 
 
-const UserType = new GraphQLObjectType({
+const UserType = new GraphQLObjectType({ //definisi
     // bagian ini ada 2 property
     // property
     name: 'User',
     // objek property
-    fields: {
+    fields: () => ({
         id:  {type: GraphQLString} ,
         firstName: {type: GraphQLString},
         age: {type: GraphQLInt},
@@ -40,7 +49,7 @@ const UserType = new GraphQLObjectType({
                 .then(res => res.data);
             }
         }
-    }
+    })
 });
 
 const RootQuery = new GraphQLObjectType({
