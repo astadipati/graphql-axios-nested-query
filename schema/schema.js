@@ -58,6 +58,15 @@ const RootQuery = new GraphQLObjectType({
                     .then(resp=>resp.data); //{data: {firstName: "Rama"}}
                     // .then(response => console.log(response)) //{data: {firstName: "Rama"}}
             }
+        },
+        // untuk dapat melihat company langsung ditambahkan objek pada rootQuery
+        company: {
+            type: CompanyType,
+            args: { id: { type: GraphQLString}},
+            resolve(parentValue, args){
+                return axios.get(`http://localhost:3000/companies/${args.id}`)
+                    .then(resp=>resp.data); 
+            }
         }
     }
 });
