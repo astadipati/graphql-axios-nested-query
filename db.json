@@ -1,0 +1,14 @@
+{
+    "users": [
+        {"id": "23", "firstName": "Rama", "age": " 20", "companyId": "1"},
+        {"id": "24", "firstName": "Astadipati", "age": " 26", "companyId": "2"},
+        {"id": "25", "firstName": "Keinarra", "age": " 3", "companyId": "3"},
+        {"id": "26", "firstName": "Kenshin", "age": " 4", "companyId": "4"}
+    ],
+    "companies": [
+        {"id":"1", "name": "Apple", "description": "iphone"},
+        {"id":"2", "name": "Microsoft", "description": "Win Office"},
+        {"id":"3", "name": "Samsung", "description": "Samsung Phone"},
+        {"id":"4", "name": "Asus", "description": "Zenphone 6"}
+    ]
+}
